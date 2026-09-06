@@ -6,7 +6,7 @@ on:
     paths:
       - "Icons/**/*.png"
       - "Icons/**/*.[pP][nN][gG]"
-      - "Scripts/tools/generate-icons.js"
+      - ".github/workflows/generate-icons.js"
       - ".github/workflows/generate-icons.yml"
   workflow_dispatch:
 
@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: '22'
       - name: Generate category icon sets
-        run: node Scripts/tools/generate-icons.js
+        run: node .github/workflows/generate-icons.js
       - name: Commit updated icon sets
         run: |
           git add -- Icons/Flag/icons.json Icons/Shape/icons.json Icons/Mark/icons.json
