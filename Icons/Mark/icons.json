@@ -1,0 +1,149 @@
+{
+  "name": "QVL Mark",
+  "icons": [
+    {
+      "name": "1password",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/1password.png"
+    },
+    {
+      "name": "1password_2",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/1password_2.png"
+    },
+    {
+      "name": "Crypto",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/Crypto.png"
+    },
+    {
+      "name": "Microsoft",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/Microsoft.png"
+    },
+    {
+      "name": "amazon",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/amazon.png"
+    },
+    {
+      "name": "apple",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/apple.png"
+    },
+    {
+      "name": "apple_intelligence",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/apple_intelligence.png"
+    },
+    {
+      "name": "avatar",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/avatar.png"
+    },
+    {
+      "name": "bilibili",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/bilibili.png"
+    },
+    {
+      "name": "duolingo",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/duolingo.png"
+    },
+    {
+      "name": "google",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/google.png"
+    },
+    {
+      "name": "ibkr",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/ibkr.png"
+    },
+    {
+      "name": "instagram",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/instagram.png"
+    },
+    {
+      "name": "mcd",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/mcd.png"
+    },
+    {
+      "name": "news",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/news.png"
+    },
+    {
+      "name": "openai",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/openai.png"
+    },
+    {
+      "name": "paypal",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/paypal.png"
+    },
+    {
+      "name": "primevideo",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/primevideo.png"
+    },
+    {
+      "name": "qx",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/qx.png"
+    },
+    {
+      "name": "qx_2",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/qx_2.png"
+    },
+    {
+      "name": "qx_3",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/qx_3.png"
+    },
+    {
+      "name": "speedtest",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/speedtest.png"
+    },
+    {
+      "name": "surge",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/surge.png"
+    },
+    {
+      "name": "surge_2",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/surge_2.png"
+    },
+    {
+      "name": "surge_3",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/surge_3.png"
+    },
+    {
+      "name": "surge_4",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/surge_4.png"
+    },
+    {
+      "name": "surge_5",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/surge_5.png"
+    },
+    {
+      "name": "telegram",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/telegram.png"
+    },
+    {
+      "name": "telegram_2",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/telegram_2.png"
+    },
+    {
+      "name": "tmobile",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/tmobile.png"
+    },
+    {
+      "name": "tweetbot",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/tweetbot.png"
+    },
+    {
+      "name": "twitter",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/twitter.png"
+    },
+    {
+      "name": "wechat",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/wechat.png"
+    },
+    {
+      "name": "wise",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/wise.png"
+    },
+    {
+      "name": "x",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/x.png"
+    },
+    {
+      "name": "youtube",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Mark/youtube.png"
+    }
+  ]
+}

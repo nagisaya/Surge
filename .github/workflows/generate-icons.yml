@@ -1,43 +1,42 @@
-name: Qvl Iconset
+name: Generate icon sets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Icons/**/*.png"
+      - "Icons/**/*.[pP][nN][gG]"
+      - "Scripts/tools/generate-icons.js"
+      - ".github/workflows/generate-icons.yml"
+  workflow_dispatch:
 
 permissions:
   contents: write
 
-on:
-  workflow_dispatch:
-
-  push:
-    paths:
-      - "Icons/**/*.png"
-
 concurrency:
-  group: icon-generation
-  cancel-in-progress: true
+  group: generate-icons-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  build:
+  generate:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
         with:
-          node-version: 22
-
-      - name: Generate icons.json
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate category icon sets
+        run: node Scripts/tools/generate-icons.js
+      - name: Commit updated icon sets
         run: |
-          node Scripts/tools/generate-icons.js
-
-      - name: Commit and push
-        run: |
+          git add -- Icons/Flag/icons.json Icons/Shape/icons.json Icons/Mark/icons.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add Icons/icons.json
-
-          git commit -m "Update icons database" || echo "No changes"
-
-          git push
+          git commit -m "Update category icon sets"
+          git push origin HEAD:main

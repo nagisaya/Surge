@@ -1,0 +1,65 @@
+{
+  "name": "QVL Shape",
+  "icons": [
+    {
+      "name": "LLM",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/LLM.png"
+    },
+    {
+      "name": "Manual",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/Manual.png"
+    },
+    {
+      "name": "adblock",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/adblock.png"
+    },
+    {
+      "name": "airplane",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/airplane.png"
+    },
+    {
+      "name": "auto",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/auto.png"
+    },
+    {
+      "name": "bank",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/bank.png"
+    },
+    {
+      "name": "bank_hk",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/bank_hk.png"
+    },
+    {
+      "name": "bank_us",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/bank_us.png"
+    },
+    {
+      "name": "folder",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/folder.png"
+    },
+    {
+      "name": "folder_2",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/folder_2.png"
+    },
+    {
+      "name": "gateway",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/gateway.png"
+    },
+    {
+      "name": "servers",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/servers.png"
+    },
+    {
+      "name": "ssid",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/ssid.png"
+    },
+    {
+      "name": "tv",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/tv.png"
+    },
+    {
+      "name": "vps",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Shape/vps.png"
+    }
+  ]
+}

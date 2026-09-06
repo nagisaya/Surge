@@ -1,0 +1,61 @@
+{
+  "name": "QVL Flag",
+  "icons": [
+    {
+      "name": "flg_ar",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_ar.png"
+    },
+    {
+      "name": "flg_de",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_de.png"
+    },
+    {
+      "name": "flg_fr",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_fr.png"
+    },
+    {
+      "name": "flg_gb",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_gb.png"
+    },
+    {
+      "name": "flg_hk",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_hk.png"
+    },
+    {
+      "name": "flg_in",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_in.png"
+    },
+    {
+      "name": "flg_jp",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_jp.png"
+    },
+    {
+      "name": "flg_kr",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_kr.png"
+    },
+    {
+      "name": "flg_mo",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_mo.png"
+    },
+    {
+      "name": "flg_ru",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_ru.png"
+    },
+    {
+      "name": "flg_sg",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_sg.png"
+    },
+    {
+      "name": "flg_tr",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_tr.png"
+    },
+    {
+      "name": "flg_tw",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_tw.png"
+    },
+    {
+      "name": "flg_usa",
+      "url": "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/Flag/flg_usa.png"
+    }
+  ]
+}

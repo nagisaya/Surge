@@ -2,36 +2,37 @@ const fs = require("fs");
 const path = require("path");
 
 const iconsDir = path.join(__dirname, "../../Icons");
-const output = path.join(iconsDir, "icons.json");
+const baseURL = "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/";
+const categories = ["Flag", "Shape", "Mark"];
 
-const baseURL =
-  "https://raw.githubusercontent.com/nagisaya/Surge/main/Icons/";
+for (const category of categories) {
+  const directory = path.join(iconsDir, category);
+  fs.mkdirSync(directory, { recursive: true });
 
-const files = fs
-  .readdirSync(iconsDir)
-  .filter(file => file.toLowerCase().endsWith(".png"))
-  .sort();
+  // Include nested PNGs, matching the workflow's Icons/**/*.png filter.
+  function collectPNGs(dir, prefix = "") {
+    return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+      const relative = prefix + entry.name;
+      if (entry.isDirectory()) {
+        return collectPNGs(path.join(dir, entry.name), relative + "/");
+      }
+      return entry.isFile() && /\.png$/i.test(entry.name) ? [relative] : [];
+    });
+  }
 
-const icons = [];
+  const files = collectPNGs(directory).sort();
+  const icons = files.map(file => ({
+    name: file.replace(/\.png$/i, ""),
+    url: `${baseURL}${category}/${file.split("/").map(encodeURIComponent).join("/")}`
+  }));
+  const output = path.join(directory, "icons.json");
+  const content = JSON.stringify({ name: `QVL ${category}`, icons }, null, 2) + "\n";
 
-for (const file of files) {
-  const name = path.basename(file, ".png");
-
-  icons.push({
-    name: name,
-    url: `${baseURL}${encodeURIComponent(file)}`
-  });
+  // Only write categories whose manifest content changed.
+  if (!fs.existsSync(output) || fs.readFileSync(output, "utf8") !== content) {
+    fs.writeFileSync(output, content, "utf8");
+    console.log(`Updated ${category}: ${icons.length} icons`);
+  } else {
+    console.log(`Unchanged ${category}: ${icons.length} icons`);
+  }
 }
-
-const json = {
-  name: "QVL ICONSET",
-  icons: icons
-};
-
-fs.writeFileSync(
-  output,
-  JSON.stringify(json, null, 2) + "\n",
-  "utf8"
-);
-
-console.log(`Generated ${files.length} icons`);
