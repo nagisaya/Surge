@@ -1,11 +1,23 @@
 # HSBC
+HOST,c-hsbc.lytics.io
+HOST,mobile.eum-appdynamics.com
+HOST,tags.tiqcdn.com
+HOST,hsbc.edge.sdk.awswaf.com
+HOST,cdnbc.wup.hsbc.com.hk
+HOST,cdn.optimizely.com
+HOST,log-58144bf0.we-stats.com
+HOST-SUFFIX,tealiumiq.com
+HOST-SUFFIX,online-metrix.net
+HOST-SUFFIX,cloud1.vv1865.com
+HOST-SUFFIX,liveperson.net
+HOST-SUFFIX,lpsnmedia.net
+
 DOMAIN,rbwm-api.hsbc.com.hk
 DOMAIN-SUFFIX,cdntm.hsbc.com.hk
 DOMAIN-SUFFIX,hsbc.com.hk
 DOMAIN-SUFFIX,cdnbc-wup.hsbc.com.hk
 DOMAIN-SUFFIX,sy.idp.liveperson.net
 DOMAIN-SUFFIX,mobile.eum-appdynamics.com
-DOMAIN-KEYWORD,hsbc
 
 # za
 DOMAIN-KEYWORD,za
