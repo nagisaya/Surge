@@ -1,16 +1,18 @@
 #!name=IP Security Monitor
-#!desc=顯示 IP 風險評分、類型、代理策略與入口／出口 IP 地理資訊，支援網路變更自動通知
+#!desc=顯示 IP 風險評分、類型、DNS 洩漏檢測、代理策略和本地/入口/出口 IP 地理資訊，支援網路變化自動通知
 #!author=HotKids&ChatGPT&Claude
+#!icon=https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/arrmatey.png
+#!category=HotKids
 #!system=ios
-#!arguments=ipqs_key:null,lang:en,mask_ip:0,event_delay:2
-#!arguments-desc=ipqs_key:(可選) IPQualityScore API Key，留空使用免費服務\nlang:(可選) 地理資訊語言，en=英文(ipinfo.io)，zh=中文(bilibili)，預設 en\nmask_ip:(可選) IP 打碼，1=開啟（123.*.*.89），0=關閉，預設 0\nevent_delay:(可選) 網路變更後延遲檢測時間（秒），預設 2 秒
+#!arguments=risk_api:null,local_geoapi:baidu,remote_geoapi:ipapi-zh,ipqs_key:null,maxmind_key:null,mask_ip:0,tw_flag:cn,event_delay:2,notify:true,panel_interval:600
+#!arguments-desc=【資料來源】\n\n· [risk_api]: 風險評分\n可選值：ipqs / proxycheck / ippure / scamalytics\n不填寫：四級回退 IPQS → ProxyCheck → IPPure → Scamalytics；缺少金鑰時跳過 IPQS\n指定值優先，失敗後按上述順序嘗試其餘來源\n\n· [local_geoapi]: 本地地區優先來源\n預設順序：百度 → bilibili → ip.sb；指定值優先，失敗後嘗試其餘來源\nbaidu = 百度 opendata（中文，省市區層級，預設）\nbilibili = bilibili（中文）\nipsb = ip.sb（英文）\n\n· [remote_geoapi]: 出口地區優先來源／入口地區來源\n出口預設四級回退：ipapi-zh → ipapi → ipinfo → MaxMind\n指定值優先，失敗後按預設順序嘗試其餘來源；MaxMind 無憑證時跳過\n入口仍按選定來源查詢。電信業者優先使用 ipinfo.io，失敗時保留地區來源的電信業者資訊\nipapi-zh = ip-api.com（中文，預設，免費版 http 明文）\nipapi = ip-api.com（英文，免費版 http 明文）\nipinfo = ipinfo.io（英文）\nmaxmind / maxmind-zh = GeoLite2（英文 / 中文優先，需 maxmind_key）\n\n【憑證（選填）】\n\n· [ipqs_key]: IPQualityScore API Key\n僅 risk_api=ipqs 或回退模式需要\n\n· [maxmind_key]: MaxMind GeoLite 憑證\n格式：account_id:license_key（免費註冊，1000 次/天）\n優先使用 MaxMind 或回退至 MaxMind 時使用；未填寫則跳過該級\n\n【顯示】\n\n· [mask_ip]: IP 遮蔽\n0 = 關閉（預設），1 = 部分遮蔽（123.*.*.89），2 = 全部隱藏\n\n· [tw_flag]: 台灣地區旗幟\ncn = 🇨🇳（預設），tw = 🇹🇼\n\n【行為】\n\n· [event_delay]: 網路變化後延遲檢測（秒），預設 2\n\n· [notify]: 網路變化時推播通知\ntrue = 推播（預設），false = 不推播\n\n· [panel_interval]: 面板更新間隔（秒），預設 600\n需與 [Panel] update-interval 保持一致，用於判定點選切換 IP 遮蔽
 
 [Panel]
 ip-security-panel = script-name=ip-security-panel,update-interval=600
 
 [Script]
 # 面板手動觸發
-ip-security-panel = type=generic,timeout=10,script-path=https://raw.githubusercontent.com/nagisaya/Surge/refs/heads/main/Scripts/ip-security.js,argument=ipqs_key={{{ipqs_key}}}&lang={{{lang}}}&mask_ip={{{mask_ip}}}
+ip-security-panel = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/HotKids/Rules/refs/heads/master/Surge/Module/Scripts/ip-security.js,argument=risk_api={{{risk_api}}}&local_geoapi={{{local_geoapi}}}&remote_geoapi={{{remote_geoapi}}}&ipqs_key={{{ipqs_key}}}&maxmind_key={{{maxmind_key}}}&mask_ip={{{mask_ip}}}&tw_flag={{{tw_flag}}}&panel_interval={{{panel_interval}}}
 
-# 網路變更自動觸發
-ip-security-event = type=event,event-name=network-changed,timeout=10,script-path=https://raw.githubusercontent.com/nagisaya/Surge/refs/heads/main/Scripts/ip-security.js,argument=TYPE=EVENT&ipqs_key={{{ipqs_key}}}&lang={{{lang}}}&mask_ip={{{mask_ip}}}&event_delay={{{event_delay}}}
+# 網路變化自動觸發
+ip-security-event = type=event,event-name=network-changed,timeout=15,script-path=https://raw.githubusercontent.com/HotKids/Rules/refs/heads/master/Surge/Module/Scripts/ip-security.js,argument=TYPE=EVENT&risk_api={{{risk_api}}}&local_geoapi={{{local_geoapi}}}&remote_geoapi={{{remote_geoapi}}}&ipqs_key={{{ipqs_key}}}&maxmind_key={{{maxmind_key}}}&mask_ip={{{mask_ip}}}&tw_flag={{{tw_flag}}}&event_delay={{{event_delay}}}&notify={{{notify}}}
