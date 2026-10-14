@@ -1,0 +1,14 @@
+#!name=WiFiCall Proxy
+#!desc=Proxy rules for Wi-Fi Calling / VoWiFi with remote DNS
+#!category=WiFCall
+#!system=ios
+
+[Rule]
+# HK
+RULE-SET,https://raw.githubusercontent.com/iniwex5/tools/main/rules/HK-wifi-call.list,HKG,extended-matching
+# US
+RULE-SET,https://raw.githubusercontent.com/iniwex5/tools/main/rules/US-wifi-call.list,USA,extended-matching
+# UK
+RULE-SET,https://raw.githubusercontent.com/iniwex5/tools/main/rules/UK-wifi-call.list,GBR,extended-matching
+# DE
+RULE-SET,https://raw.githubusercontent.com/iniwex5/tools/main/rules/DE-wifi-call.list,DEU,extended-matching
