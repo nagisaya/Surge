@@ -1,0 +1,33 @@
+#!name=AdBlock Rewrite
+#!desc=AdBlock Rewrite Enhancement
+#!category=去广告
+
+[MITM]
+hostname = %APPEND% gab.122.gov.cn,api.mcd.cn,apimobile.meituan.com,npay.meituan.com,web.meituan.com
+
+[Rule]
+# > 交管12123
+URL-REGEX,^https?:\/\/gab\.122\.gov\.cn\/eapp\/m\/sysquery\/adver$,REJECT
+
+# > 麦当劳
+URL-REGEX,^https?:\/\/api\.mcd\.cn\/bff\/portal\/(home\/splash|richpop),REJECT
+
+# > 爱回收
+URL-REGEX,^https??:\/\/gw\.aihuishou\.com\/app-portal\/home\/getadvertisement,REJECT
+
+[Map Local]
+# > 猫眼 by RuCu6
+^https?:\/\/p0\.pipi\.cn\/(adAdmin|mediaplus\/maoyantong_ads_fe)\/\w+\.(jpg|png)\?imageMogr2\/(quality\/|thumbnail\/(860x0|!165x165|!1049x1169)) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# > 美团小程序
+^https?:\/\/apimobile\.meituan\.com\/group\/v1\/deal\/searchpage\/defaultword data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https?:\/\/npay\.meituan\.com\/conch\/(flow\/mypage-wallet-info|walletv3\/wechat-pop-window) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https?:\/\/web\.meituan\.com\/(api\/miniprogram\/my\/(novelZone|resources)|newUser\/returnMoney\/popWindow) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+# > 美团小程序去广告 by ZenmoFeiShi
+Meituan.js = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/web\.meituan\.com\/api\/miniprogram\/(tabbar\/all\/query|index\/aggregate),script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/MeiTuanNoAd.js
+
+# > 微信读书去广告 by Maasea
+### fork from https://raw.githubusercontent.com/Maasea/sgmodule/master/WeRead.sgmodule
+WeRead.js = type=http-response,requires-body=1,max-size=0,pattern=https?:\/\/i\.weread\.qq\.com\/(book\/(reading[sS]tat|chapterReview)|user\/profile|groups\/readerEntrance|review\/list|mobileSync),script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/WeRead/weread.js
