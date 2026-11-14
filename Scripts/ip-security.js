@@ -24,7 +24,7 @@
  * 參數說明：
  * - TYPE: 設為 EVENT 表示網路變化觸發（自動判斷，無需手動設定）
  * - ipqs_key: IPQualityScore API Key（僅 Surge，可選，優先選項或回退到 IPQS 時使用）
- * - risk_api: 優先風險源，ipqs / proxycheck / ippure / scamalytics；Stash 預設 ippure 且不支援 ipqs；優先選項失敗後按預設順序嘗試剩餘來源
+ * - risk_api: 優先風險源，ipqs / Proxycheck / ippure / scamalytics；Stash 預設 ippure 且不支援 ipqs；優先選項失敗後按預設順序嘗試剩餘來源
  * - local_geoapi: 本地地區優先選項，預設 baidu；baidu / bilibili / ipsb 指定優先源，失敗按百度 → bilibili → ip.sb 嘗試剩餘來源
  * - remote_geoapi: 出口地區優先選項（入口仍按選定源查詢），預設 ipapi-zh → ipapi → ipinfo → maxmind；優先使用所選來源且不重複，MaxMind 無憑證跳過；Stash 不支援 MaxMind，可選 ippure。ipapi-zh=ip-api.com(中文, http 明文)，ipinfo=ipinfo.io，ipapi=ip-api.com(英文)，maxmind=GeoLite2(英文)，maxmind-zh=GeoLite2(中文優先)
  * - maxmind_key: MaxMind GeoLite 憑證，格式 account_id:license_key（僅 Surge，MaxMind 優先選項或回退時使用，未填跳過，免費註冊 1000 次/天）
@@ -57,7 +57,7 @@
  *   DNS 地區只作展示，不據此判斷洩漏；遮蔽時同時隱藏可能包含 IP 的 rDNS。
  *   腳本 notify 預設 true；配套卡片顯式關閉通知，僅 monitor 定時任務開啟。
  * - 覆寫 argument 內的 tile 用於選擇卡片；其餘選項已預設，不需要匯入參數介面。
- * - proxy: 可手動指定 URL 編碼的節點/策略組名；留空遵循當前分流。
+ * - Proxy: 可手動指定 URL 編碼的節點/策略組名；留空遵循當前分流。
  * - mode: home / collapsed（獨立卡片預設）；折疊模式不覆寫 Stash 長按節點時指定的出口。
  * - iOS 折疊卡片按 $environment.system 自動使用單行標題：Ⓓ / 🅟 + IP，純淨度只顯示百分比。
  * - mask_ip: Stash 固定按參數顯示，不通過重新整理時間猜測點選切換。
@@ -116,7 +116,7 @@ const CONFIG = {
     ipInfo: (ip) => `https://ipinfo.io/${ip}/json`,
     ipApi: (ip, lang) => `http://ip-api.com/json/${ip}?lang=${lang}&fields=status,country,countryCode,regionName,city,isp,org`,
     ipqs: (key, ip) => `https://ipqualityscore.com/api/json/ip/${key}/${ip}?strictness=1`,
-    proxyCheck: (ip) => `https://proxycheck.io/v2/${ip}?risk=1&vpn=1`,
+    ProxyCheck: (ip) => `https://Proxycheck.io/v2/${ip}?risk=1&vpn=1`,
     scamalytics: (ip) => `https://scamalytics.com/ip/${ip}`,
     dnsLeakEdns: (id) => `http://${id}.edns.ip-api.com/json`
   },
@@ -254,7 +254,7 @@ function parseArguments() {
 
   return {
     isEvent: !isStash && arg.TYPE === "EVENT",
-    proxy: isStash && clean(arg.mode) !== "collapsed" ? clean(arg.proxy) : "",
+    Proxy: isStash && clean(arg.mode) !== "collapsed" ? clean(arg.Proxy) : "",
     mode: clean(arg.mode) === "collapsed" ? "collapsed" : "home",
     tile: clean(arg.tile) || "outbound",
     task: clean(arg.task),
@@ -339,7 +339,7 @@ function httpRaw(url, policy, headers, deadline = requestDeadline) {
     if (isStash) {
       // IPPure 與官方腳本一樣使用原生 HTTP 預設值；其他請求的 timeout 單位為秒。
       if (!nativeIPPure) req.timeout = Math.min(5, remaining / 1000);
-      const selected = policy || args.proxy;
+      const selected = policy || args.Proxy;
       if (selected) req.headers = { ...req.headers, "X-Stash-Selected-Proxy": encodeURIComponent(selected) };
       // 不用新增的 5 秒腳本截止截斷 IPPure；保留總期限，避免原生請求不回呼時停滯。
       if (hasTimers) timer = setTimeout(() => complete("script wait deadline", null, null),
@@ -385,8 +385,8 @@ function getIPPureCard() { return _ippureCardP || (_ippureCardP = httpRaw(CONFIG
 let _stashOutbound4P = null;
 
 // ProxyCheck 請求去重：風險評分和 IP 類型回退共享同一個請求
-let _proxyCheckP = null;
-function getProxyCheck(ip) { return _proxyCheckP || (_proxyCheckP = httpJSON(CONFIG.urls.proxyCheck(ip))); }
+let _ProxyCheckP = null;
+function getProxyCheck(ip) { return _ProxyCheckP || (_ProxyCheckP = httpJSON(CONFIG.urls.ProxyCheck(ip))); }
 
 // ==================== 資料處理工具 ====================
 function flag(cc) {
@@ -616,7 +616,7 @@ function parseScamalyticsScore(html) {
  * 入口 IP 通過 remoteAddress 的 (Proxy) 後綴識別
  */
 async function getPolicyAndEntrance() {
-  if (isStash) return { policy: args.proxy || (args.mode === "collapsed" ? "當前檢測出口" : "按規則分流"), entranceIP: null };
+  if (isStash) return { policy: args.Proxy || (args.mode === "collapsed" ? "當前檢測出口" : "按規則分流"), entranceIP: null };
   const pattern = /(api(-ipv4)?\.ip\.sb|ipinfo\.io|ip-api\.com|\b1\.1\.1\.1\b|2606:4700|opendata\.baidu\.com|geolite\.info)/i;
 
   async function findInRecent(limit) {
@@ -729,10 +729,10 @@ async function getRiskScore(ip) {
     return null;
   }
 
-  const tryMap = { ipqs: tryIPQS, proxycheck: tryProxyCheck, ippure: tryIPPure, scamalytics: tryScamalytics };
+  const tryMap = { ipqs: tryIPQS, Proxycheck: tryProxyCheck, ippure: tryIPPure, scamalytics: tryScamalytics };
   if (api && !tryMap[api]) IPLog.log("未知 risk_api: " + api + "，按預設順序回退");
 
-  const defaults = isStash ? ["proxycheck", "ippure", "scamalytics"] : ["ipqs", "proxycheck", "ippure", "scamalytics"];
+  const defaults = isStash ? ["Proxycheck", "ippure", "scamalytics"] : ["ipqs", "Proxycheck", "ippure", "scamalytics"];
   const order = defaults.includes(api) ? [api, ...defaults.filter(key => key !== api)] : defaults;
   for (const key of order) {
     if (key === "ipqs" && !args.ipqsKey) {
@@ -996,7 +996,7 @@ async function runStashMonitor() {
   if (!args.notify || (typeof $script !== "undefined" && $script.type === "tile")) return done({});
   const current = await fetchIPs();
   if (finished) return;
-  const key = "stash.ip-security.monitor.v2:" + encodeURIComponent(args.proxy || "routing");
+  const key = "stash.ip-security.monitor.v2:" + encodeURIComponent(args.Proxy || "routing");
   let previous = {};
   try { previous = JSON.parse($persistentStore.read(key) || "{}"); } catch (_) {}
   if (!previous || typeof previous !== "object" || Array.isArray(previous)) previous = {};
@@ -1027,7 +1027,7 @@ async function runStashMonitor() {
     const m = ip => ip ? maskIP(ip, args.maskIP) : "查詢失敗";
     const detail = info => (info?.location ? formatGeo(info.countryCode, info.location) : "地區查詢失敗") +
       " · " + (info?.organization || "電信業者未知");
-    const title = "🔄 網路已切換" + (args.proxy ? " | " + args.proxy : "");
+    const title = "🔄 網路已切換" + (args.Proxy ? " | " + args.Proxy : "");
     const subtitle = "Ⓓ " + m(current.localIP) + " 🅟 " + m(current.outIP);
     const lines = ["🅟 風險控管：" + (sameRisk?.valid ? formatRisk(sameRisk) : "未知（檢測失敗）") +
       " | 類型：" + (sameRisk?.typeText || "類型未知 · 來源未知"),
@@ -1320,7 +1320,7 @@ async function getStashOutboundResult(includeIPv6, detectedExit) {
 async function runStashSummary() {
   const results = await Promise.allSettled([
     getStashRiskResult(), getStashLocalResult(), getStashOutboundResult(true),
-    checkDNSLeak(args.proxy || undefined, Date.now() + 1500)
+    checkDNSLeak(args.Proxy || undefined, Date.now() + 1500)
   ]);
   const [risk, local, outbound, dns] = results.map(result => result.status === "fulfilled" ? result.value : null);
   const m = ip => maskIP(ip, args.maskIP);
@@ -1344,8 +1344,8 @@ async function runStashSummary() {
   const resolver = dns?.resolvers?.[0];
   lines.push("", "DNS 解析器：" + (resolver ? m(resolver.ip) : "查詢失敗"));
   if (resolver?.geo) lines.push("DNS 地區：" + resolver.geo);
-  // 地區不能證明是否洩漏；proxy 只代表呼叫者顯式指定的策略，不推斷實際節點。
-  if (args.proxy) lines.push("指定策略：" + args.proxy);
+  // 地區不能證明是否洩漏；Proxy 只代表呼叫者顯式指定的策略，不推斷實際節點。
+  if (args.Proxy) lines.push("指定策略：" + args.Proxy);
   return done({
     title: "IP 資訊卡", content: lines.join("\n"),
     backgroundColor: risk?.color || "#9E9E9E", url: "https://ippure.com"
@@ -1398,7 +1398,7 @@ async function runStashTile() {
   }
 
   if (args.tile === "dns") {
-    const detected = await checkDNSLeak(args.proxy || undefined);
+    const detected = await checkDNSLeak(args.Proxy || undefined);
     const resolver = detected.resolvers?.[0];
     if (!resolver) return fail("DNS 解析器檢測失敗");
     const info = normalizeIpApi(await httpJSON(CONFIG.urls.ipApi(resolver.ip, "zh-CN")));
@@ -1415,7 +1415,7 @@ async function runStashTile() {
   const lines = [m(outIP), outIPv6 ? "IPv6：" + m(outIPv6) : "",
     location ? [flag(countryCode), location].filter(Boolean).join(" ") : "地區查詢失敗", organization];
   if (args.mode === "home" && result.reverseDNS) lines.push("rDNS：" + (args.maskIP ? "[已隱藏]" : result.reverseDNS));
-  if (args.mode === "home" && args.proxy) lines.push("指定策略：" + args.proxy);
+  if (args.mode === "home" && args.Proxy) lines.push("指定策略：" + args.Proxy);
   return render(lines, location ? tile.color : "#9E9E9E", {
     title: heading(m(outIP)),
     content: compactStashIPContent(result, outRaw?.country_code)
@@ -1430,7 +1430,7 @@ async function runStashTile() {
     return done({});
   }
   IPLog.log("=== IP 安全檢測開始 (v6.4.15 / " + (isStash ? "Stash / " + (args.task || args.tile) + " / " + args.mode : "Surge") + ") ===");
-  if (isStash) IPLog.log("請求線路：本地 DIRECT；出口 " + (args.proxy ? "使用參數指定的策略" : "遵循當前分流（長按測試時使用所選節點）"));
+  if (isStash) IPLog.log("請求線路：本地 DIRECT；出口 " + (args.Proxy ? "使用參數指定的策略" : "遵循當前分流（長按測試時使用所選節點）"));
   if (isStash) return args.task === "monitor" ? await runStashMonitor() : await runStashTile();
 
   // 1. EVENT 觸發時延遲等待網路穩定
